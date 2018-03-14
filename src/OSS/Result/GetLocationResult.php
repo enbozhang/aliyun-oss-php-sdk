@@ -1,17 +1,20 @@
 <?php
-
 namespace OSS\Result;
 
 use OSS\Core\OssException;
 
 /**
- * The type of the return value of getBucketAcl, it wraps the data parsed from xml.
+ * Class GetLocationResult getBucketLocation interface returns the result class, encapsulated
+ * The returned xml data is parsed
  *
  * @package OSS\Result
  */
-class AclResult extends Result
+class GetLocationResult extends Result
 {
+
     /**
+     * Parse data from response
+     * 
      * @return string
      * @throws OssException
      */
@@ -22,10 +25,6 @@ class AclResult extends Result
             throw new OssException("body is null");
         }
         $xml = simplexml_load_string($content);
-        if (isset($xml->AccessControlList->Grant)) {
-            return strval($xml->AccessControlList->Grant);
-        } else {
-            throw new OssException("xml format exception");
-        }
+        return $xml;
     }
 }
